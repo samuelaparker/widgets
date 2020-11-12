@@ -21,15 +21,36 @@ const Search = () => {
     }, [term]);
 
     const renderedResults = results.map((results) => {
-        return <div className="item">
+        return <div key={results.pageid} className="item">
+            <div className="right floated content">
+                <a className="ui button"
+                    href={`https://en.wikipedia.org?curid=${results.pageid}`}
+                >
+                Go
+                </a>
+            </div>
             <div className="content">
                 <div className="header">
                     {results.title}
                 </div>
-                {results.snippet}
+                <span dangerouslySetInnerHTML={{ __html: results.snippet}}></span>
             </div>
         </div>
-    })
+    });
+    //Alternative to dangereouslySetInnerHTML using RegEx
+    // const renderedResults = results.map((result) => {
+    //     const regex = /(<([^>]+)>)/gi;  //NEW
+    //     const cleanSnippet = result.snippet.replace(regex, ""); //NEW 
+     
+    //     return ( // {result.snippet} was replaced with {cleanSnippet} 
+    //       <div key={result.pageid} className="item">
+    //         <div className="content">
+    //           <div className="header">{result.title}</div>
+    //           {cleanSnippet} 
+    //         </div>
+    //       </div>
+    //     );
+    //   });
 
     return (
         <div>
