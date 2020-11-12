@@ -17,8 +17,23 @@ const Search = () => {
             })
             setResults(data.query.search);
         };
-        search();
-    }, [term]);
+
+        if (term && !results.length) { 
+            search();
+        } else {
+            const timeoutId = setTimeout(() => {
+                if (term) {
+                    search();
+                }
+            }, 1000);
+
+            return () => {
+                clearTimeout(timeoutId);
+            };
+        }
+
+
+    }, [term, results.length]);
 
     const renderedResults = results.map((results) => {
         return <div key={results.pageid} className="item">
@@ -26,14 +41,14 @@ const Search = () => {
                 <a className="ui button"
                     href={`https://en.wikipedia.org?curid=${results.pageid}`}
                 >
-                Go
+                    Go
                 </a>
             </div>
             <div className="content">
                 <div className="header">
                     {results.title}
                 </div>
-                <span dangerouslySetInnerHTML={{ __html: results.snippet}}></span>
+                <span dangerouslySetInnerHTML={{ __html: results.snippet }}></span>
             </div>
         </div>
     });
@@ -41,7 +56,7 @@ const Search = () => {
     // const renderedResults = results.map((result) => {
     //     const regex = /(<([^>]+)>)/gi;  //NEW
     //     const cleanSnippet = result.snippet.replace(regex, ""); //NEW 
-     
+
     //     return ( // {result.snippet} was replaced with {cleanSnippet} 
     //       <div key={result.pageid} className="item">
     //         <div className="content">
