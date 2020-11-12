@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-//test
 
 const Search = () => {
     const [term, setTerm] = useState('programming');
