@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 
 const Dropdown = ({ options, selected, onSelectedChange, test }) => { //destructor options from props object
+    const [open, setOpen] = useState(false);
     const renderedOptions = options.map((option) => {
+        if (option.value === selected.value) { //keeps selected color from being shown twice
+            return null;
+        }
         return (
             <div 
             key={option.value} 
@@ -18,10 +22,10 @@ const Dropdown = ({ options, selected, onSelectedChange, test }) => { //destruct
         <div className="ui form">
             <div className="field">
                 <label className="label">Select a Color</label>
-                <div className="ui selection dropdown visible active">
+                <div onClick={() => setOpen(!open)} className={`ui selection dropdown ${open ? 'visible active' : ''}`}>
                     <i className="dropdown icon"></i>
                     <div className="text">{selected.label}</div>
-                    <div className="menu visible transition">
+                    <div className={`menu ${open ? 'visible transition' : ''}`}>
                         {renderedOptions}
                     </div>
                 </div>
