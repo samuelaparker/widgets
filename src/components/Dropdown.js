@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 
-const Dropdown = ({ options, selected, onSelectedChange, test }) => { //destructor options from props object
+const Dropdown = ({ label, options, selected, onSelectedChange, test }) => { //destructor options from props object
     const [open, setOpen] = useState(false);
     const ref = useRef();
 
@@ -12,7 +12,7 @@ const Dropdown = ({ options, selected, onSelectedChange, test }) => { //destruct
             }
             setOpen(false);
         }
-        
+
         document.body.addEventListener('click', onBodyClick); 
 
         return () => {
@@ -41,7 +41,7 @@ const Dropdown = ({ options, selected, onSelectedChange, test }) => { //destruct
     return (
         <div ref={ref} className="ui form">
             <div className="field">
-                <label className="label">Select a Color</label>
+                <label className="label">{label}</label>
                 <div onClick={() => {
                     setOpen(!open)
                 }}
