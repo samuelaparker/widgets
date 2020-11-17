@@ -1,11 +1,12 @@
 //no JSX so no need to import react
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Route = ({ path, children}) => {
+    const [currentPath, setCurrentPath] = useState(window.location.pathname); //this state exists so route updates
 
     useEffect(() => {
         const onLocationChange = () => {
-            console.log('Location Change')
+            setCurrentPath(window.location.pathname);
         }
 
         window.addEventListener('popstate', onLocationChange);
@@ -13,7 +14,7 @@ const Route = ({ path, children}) => {
             window.removeEventListener('popstate', onLocationChange);
         }
     }, []);
-    return window.location.pathname === path ? children : null; 
+    return currentPath === path ? children : null; 
 };
 
 
