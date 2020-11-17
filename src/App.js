@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from './components/Dropdown';
@@ -52,7 +52,6 @@ export default () => { //nested jsx components show up as props called 'children
                 options={options}
                 selected={selected}
                 onSelectedChange={setSelected}
-
             />
         </Route>
         <Route path="/translate">
